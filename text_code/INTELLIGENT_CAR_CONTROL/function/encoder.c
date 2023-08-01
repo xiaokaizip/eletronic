@@ -26,24 +26,24 @@ float calculate_speed(int encoder, unsigned short interval_time) {
 }
 
 
-int count = 0;
-int last_count = 0;
+short count = 0;
+short temp_count = 0;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim->Instance == TIM6) {
-        count = TIM1->CNT;
+        count = (short) (__HAL_TIM_GET_COUNTER(&htim1));
         chassis.motor[motor_FL].real_speed = calculate_speed(count - chassis.motor[motor_FL].last_count, 10);
         chassis.motor[motor_FL].last_count = count;
 
-        count = TIM2->CNT;
+        count = (short) (__HAL_TIM_GET_COUNTER(&htim1));
         chassis.motor[motor_FR].real_speed = calculate_speed(count - chassis.motor[motor_FR].last_count, 10);
         chassis.motor[motor_FR].last_count = count;
 
-        count = TIM3->CNT;
+        count = (short) (__HAL_TIM_GET_COUNTER(&htim1));
         chassis.motor[motor_BL].real_speed = calculate_speed(count - chassis.motor[motor_BL].last_count, 10);
         chassis.motor[motor_BL].last_count = count;
 
-        count = TIM5->CNT;
+        count = (short) (__HAL_TIM_GET_COUNTER(&htim1));
         chassis.motor[motor_BR].real_speed = calculate_speed(count - chassis.motor[motor_BR].last_count, 10);
         chassis.motor[motor_BR].last_count = count;
     }

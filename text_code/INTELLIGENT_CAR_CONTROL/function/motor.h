@@ -25,7 +25,7 @@ typedef struct {
     int direction;
     float motor_pid_out;
     motor_type_e motor_type;
-    int last_count;
+    short last_count;
 } motor_t;
 
 
